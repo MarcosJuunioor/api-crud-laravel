@@ -8,6 +8,7 @@ O projeto em tela tem como propósito exemplificar a construção de uma API CRU
 - PHP >= 7.2.5
 - Servidor Apache
 - Composer (o Laravel usa o Composer para gerenciar suas dependências)
+- Ter alguma noção do padrão MVC
 
 ## Passo a passo para criação e configuração do projeto
 - Torne-se root: <br>
@@ -34,14 +35,46 @@ Digite "localhost:8080" no navegador. Neste ponto, deverá ser exibida a página
 
 ## Passo a passo para criação da API Rest CRUD
 - Configure o projeto para o banco de dados de sua preferência. Neste caso, iremos usar o MySql. Para isso, acesse o arquivo ".env" e altere as configurações padrões:<br>
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=laravel
-DB_USERNAME=root
-DB_PASSWORD=
+DB_CONNECTION=mysql <br>
+DB_HOST=127.0.0.1 <br>
+DB_PORT=3306 <br>
+DB_DATABASE=laravel <br>
+DB_USERNAME=root <br>
+DB_PASSWORD= <br>
 
-- 
+- Crie um Model de teste (neste caso, vou criar um Model chamado Pessoa)<br>
+Para isso, navegue até o diretório do seu projeto e execute o seguinte comando (no terminal):<br>
+php artisan make:model Pessoa --migration
+
+- Crie um Controller para o Model criado anteriormente
+Ainda no diretório do projeto, execute o seguinte comando: 
+php artisan make:controller PessoaController
+
+- Abra o seu projeto com alguma IDE (pode ser o Sublime) <br>
+* Vá até o diretório "App" dentro do seu projeto e acesse o Model Pessoa <br>
+Coloque o seguinte código dentro do corpo da classe:<br>
+    protected $fillable = [
+        'nome', 'cpf', 'telefone',
+    ]; <br>
+Esses serão os dados necessários para se criar um registro de Pessoa no banco. Ou seja, deverão ser passados como parâmetros nas requisições.
+
+* Vá até o diretório database/migrations e abra a migration correspondente ao Model Pessoa <br>
+Coloque o código abaixo dentro da função "function up": <br>
+<br>
+public function up()
+{
+            Schema::create('pessoas', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->string('nome', 100);
+                $table->string('cpf', 11);
+                $table->string('telefone', 45);
+                $table->timestamps();
+            });
+}
+
+
+
+
 
 
 https://laravel.com/docs/7.x
