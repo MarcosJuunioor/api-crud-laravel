@@ -71,13 +71,66 @@ Coloque o código abaixo como a função "function up": <br>
             $table->timestamps();
         });
     }
+- No terminal, digite o seguinte comando: <br>
+php artisan migrate <br>
+Neste ponto, a tabela pessoa deverá ser criada no banco de dados. O próximo passo é a codificação do Controller.
+
+- Vá até o diretório app/Http/Controllers/ e acesse o arquivo PessoaController <br>
+Coloque o código abaixo dentro da classe Controller: <br>
+## 
+    public function index()
+    {
+        return Pessoa::all();
+    }
 
 
+    public function store(Request $request)
+    {
+        $dados = $request->all();
+        return Pessoa::create($dados);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $pessoa = Pessoa::findOrFail($id);
+        if($pessoa->update($request->all())){
+            return $pessoa;
+        }else{
+            return "error";
+        }
+
+    }
+
+    public function destroy($id)
+    {
+        $pessoa = Pessoa::findOrFail($id);
+        return $pessoa->destroy($id);
+    }
+
+Obs: Cada uma das funções executa uma das operações de CRUD. Index lista, Store cria, Update atualiza e Destroy deleta.
+
+- Configure a rota <br>
+Vá até o diretório "routes" e acesse o arquivo "api.php". Nele, adicione a seguinte rota: <br>
+Route::apiResource("pessoas", "PessoaController"); <br>
+Ou seja, o controller "PessoaController" atenderá as requisições feitas na url "host/api/pessoas". <br>
+
+## Documentação da API
+- Cadastro de pessoa <br>
+Chamar por post a url "localhost/api/pessoas", passando os parâmetros "nome, cpf e telefone".
+
+- Listagem de pessoas <br>
+Chamar por get a url "localhost/api/pessoas".
+
+- Deletar pessoa <br>
+Chamar por delete a url "localhost/api/pessoas", passando o id da pessoa na url. Exemplo: localhost/api/pessoas/1. Ou seja, a pessoa de id = 1 será deletada.
+
+- Atualizar pessoa <br>
+Chamar por patch a url "localhost/api/pessoas", passando o id da pessoa na url e os dados de atualização no pacote http.
 
 
+## Referências
 
-
-https://laravel.com/docs/7.x
-https://stackoverflow.com/questions/23411520/how-to-fix-error-laravel-log-could-not-be-opened
+https://laravel.com/docs/7.x <br>
+https://stackoverflow.com/questions/23411520/how-to-fix-error-laravel-log-could-not-be-opened <br>
 https://getcomposer.org/doc/00-intro.md
 
