@@ -51,26 +51,26 @@ Ainda no diretório do projeto, execute o seguinte comando:
 php artisan make:controller PessoaController
 
 - Abra o seu projeto com alguma IDE (pode ser o Sublime) <br>
-* Vá até o diretório "App" dentro do seu projeto e acesse o Model Pessoa <br>
+- Vá até o diretório "App" dentro do seu projeto e acesse o Model Pessoa <br>
 Coloque o seguinte código dentro do corpo da classe:<br>
     protected $fillable = [
         'nome', 'cpf', 'telefone',
     ]; <br>
 Esses serão os dados necessários para se criar um registro de Pessoa no banco. Ou seja, deverão ser passados como parâmetros nas requisições.
 
-* Vá até o diretório database/migrations e abra a migration correspondente ao Model Pessoa <br>
-Coloque o código abaixo dentro da função "function up": <br>
-<br>
-public function up()
-{
-            Schema::create('pessoas', function (Blueprint $table) {
-                $table->bigIncrements('id');
-                $table->string('nome', 100);
-                $table->string('cpf', 11);
-                $table->string('telefone', 45);
-                $table->timestamps();
-            });
-}
+- Vá até o diretório database/migrations e abra a migration correspondente ao Model Pessoa <br>
+Coloque o código abaixo como a função "function up": <br>
+## 
+    public function up()
+    {
+        Schema::create('pessoas', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('nome', 100);
+            $table->string('cpf', 11);
+            $table->string('telefone', 45);
+            $table->timestamps();
+        });
+    }
 
 
 
