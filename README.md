@@ -9,6 +9,7 @@ O projeto em tela tem como propósito exemplificar a construção de uma API CRU
 - Servidor Apache
 - Composer (o Laravel usa o Composer para gerenciar suas dependências)
 - Ter alguma noção do padrão MVC
+- MySql (ou outro SGBD de sua preferência)
 
 ## Passo a passo para criação e configuração do projeto
 - Torne-se root: <br>
